@@ -5,6 +5,11 @@ function getCol(cellId) {
     return cellId.charCodeAt(6) - 49
 }
 
+const DEFAULT_BG_COLOR = "rgb(250, 250, 250)"
+const CELL_UNUSABLE_COLOR = "#F1F1F1"
+
+
+
 const EMPTY_CELL = "e"
 const X_CELL = "x"
 const O_CELL = "o"
@@ -46,10 +51,25 @@ function anounceLose() {
     boardButtons[1][1].style.backgroundColor = 'red'
 }
 
+function resetBoard() {
+    for (i = 0; i < 3 ; i++) { //using for loops as I hope to one day expand to chess
+        for (j = 0; j < 3; j++) {
+            board[i][j] = EMPTY_CELL
+            boardButtons[i][j].style.backgroundColor = DEFAULT_BG_COLOR
+            boardButtons[i][j].innerHTML = ""
+        }
+    }
+    isXTurn = true
+    remainingMoves = 9
+    gameOver = false
+}
+
+
+
 
 var gameBoardCells = document.getElementsByClassName("cell")
 
-// Add each cell to board and add event listeners
+// Add each cell to board and add event listeners to update game state
 for (var i = 0 ; i < gameBoardCells.length ; i++) {
     var cell = gameBoardCells[i]
 
@@ -71,7 +91,7 @@ for (var i = 0 ; i < gameBoardCells.length ; i++) {
 
             //console.log(cellClicked.id + " " + board[row][col])
             cellClicked.innerHTML = board[row][col]
-            cellClicked.style.backgroundColor = "#F1F1F1"
+            cellClicked.style.backgroundColor = CELL_UNUSABLE_COLOR
             
             if (checkWin()) {
                 gameOver = true
@@ -88,6 +108,12 @@ for (var i = 0 ; i < gameBoardCells.length ; i++) {
     })
     //console.log(gameBoardCells[i] + ", " + row + ", " + col)
 }
+
+// Add event listener to new game button
+var newGameButton = document.getElementById("new-game-button")
+newGameButton.addEventListener('click', function(event) {
+    resetBoard()
+})
 
 console.log(boardButtons)
 
