@@ -17,7 +17,9 @@ const O_CELL = "o"
 var isXTurn = true
 var remainingMoves = 9
 var gameOver = false
-// TODO: Add stats tracking?
+var xTotalWins = 0
+var oTotalWins = 0
+var gamesPlayed = 0
 //var winner = EMPTY_CELL
 
 var boardButtons = [[],[],[]]
@@ -42,13 +44,22 @@ function checkWin() {
 
 function anounceWin(player) {
     // TODO: Add fanfare
+    if (player == X_CELL) {
+        xTotalWins++
+    } else {
+        oTotalWins++
+    }
+    gamesPlayed++
     boardButtons[1][1].innerHTML = player + " is the winner"
     boardButtons[1][1].style.backgroundColor = 'green'
+    console.log("x:"+(xTotalWins)+" o:"+(oTotalWins)+" games:"+gamesPlayed)
 }
 function anounceLose() {
     // TODO: Add fanfare?
+    gamesPlayed++
     boardButtons[1][1].innerHTML = "No Winner"
     boardButtons[1][1].style.backgroundColor = 'red'
+    console.log("x:"+(xTotalWins)+" o:"+(oTotalWins)+" games:"+gamesPlayed)
 }
 
 function resetBoard() {
