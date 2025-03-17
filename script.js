@@ -22,6 +22,9 @@ var oTotalWins = 0
 var gamesPlayed = 0
 //var winner = EMPTY_CELL
 
+var xTotalWinsDiv = document.getElementById("x-wins")
+var oTotalWinsDiv = document.getElementById("o-wins")
+var gamesPlayedDiv = document.getElementById("games-played")
 var boardButtons = [[],[],[]]
 var board = [[],[],[]]
 
@@ -42,6 +45,11 @@ function checkWin() {
         || (board[0][2] != EMPTY_CELL && board[0][2] == board[1][1] && board[0][2] == board[2][0])
 }
 
+function updateStats() {
+    xTotalWinsDiv.innerHTML = "X: " + xTotalWins + " wins"
+    oTotalWinsDiv.innerHTML = "O: " + oTotalWins + " wins"
+    gamesPlayedDiv.innerHTML = "Games Played: " + gamesPlayed
+}
 function anounceWin(player) {
     // TODO: Add fanfare
     if (player == X_CELL) {
@@ -52,6 +60,7 @@ function anounceWin(player) {
     gamesPlayed++
     boardButtons[1][1].innerHTML = player + " is the winner"
     boardButtons[1][1].style.backgroundColor = 'green'
+    updateStats()
     console.log("x:"+(xTotalWins)+" o:"+(oTotalWins)+" games:"+gamesPlayed)
 }
 function anounceLose() {
@@ -59,6 +68,7 @@ function anounceLose() {
     gamesPlayed++
     boardButtons[1][1].innerHTML = "No Winner"
     boardButtons[1][1].style.backgroundColor = 'red'
+    updateStats()
     console.log("x:"+(xTotalWins)+" o:"+(oTotalWins)+" games:"+gamesPlayed)
 }
 
